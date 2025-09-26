@@ -76,7 +76,6 @@ function App() {
     }
   };
 
-  // Статистика
   const totalTodos = todos.length;
   const completedTodos = todos.filter(todo => todo.completed).length;
   const progressPercentage = totalTodos > 0 ? (completedTodos / totalTodos) * 100 : 0;
@@ -85,7 +84,6 @@ function App() {
     <div className="App">
       <h1 className='zagalovok'>Менеджер задач</h1>
 
-      {/* Статистика */}
       <div className="stats-container">
         <div className="stats-card">
           <div className="stat">
@@ -102,7 +100,6 @@ function App() {
           </div>
         </div>
         
-        {/* Прогресс бар */}
         <div className="progress-bar">
           <div 
             className="progress-fill" 

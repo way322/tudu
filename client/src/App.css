@@ -322,7 +322,6 @@ form.adding {
   background: rgba(255, 255, 255, 0.15);
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
   .App {
     padding: 15px;
@@ -366,7 +365,7 @@ form.adding {
   }
 }
 
-/* Анимация для последовательного появления задач */
+
 .todo-item:nth-child(1) { animation-delay: 0.1s; }
 .todo-item:nth-child(2) { animation-delay: 0.2s; }
 .todo-item:nth-child(3) { animation-delay: 0.3s; }
