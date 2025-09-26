@@ -4,32 +4,98 @@
   align-items: center;
   min-height: 100vh;
   padding: 20px;
-  background: linear-gradient(135deg, #2e2c2c 0%, #1a1a1a 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-attachment: fixed;
 }
 
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
 }
 
-/* Добавляем box-sizing для всех элементов */
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
 .zagalovok {
   color: white;
-  font-size: 2.5rem;
-  margin-bottom: 30px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+  text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  font-weight: 300;
+  letter-spacing: 1px;
 }
 
+/* Контейнер статистики */
+.stats-container {
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 30px;
+}
+
+.stats-card {
+  display: flex;
+  justify-content: space-around;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-top: 5px;
+}
+
+/* Прогресс бар */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+
+/* Форма */
 form {
   display: flex;
   gap: 15px;
   margin-bottom: 30px;
   width: 100%;
   max-width: 800px;
+  transition: all 0.3s ease;
+}
+
+form.adding {
+  transform: scale(0.98);
 }
 
 .input {
@@ -37,18 +103,19 @@ form {
   height: 60px;
   border-radius: 15px;
   color: white;
-  background: rgba(83, 27, 136, 0.8);
+  background: rgba(255, 255, 255, 0.15);
   font-size: 1.2rem;
   border: 2px solid transparent;
   padding: 0 20px;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .input:focus {
   outline: none;
-  border-color: #9C27B0;
-  box-shadow: 0 0 20px rgba(156, 39, 176, 0.4);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
 }
 
@@ -60,48 +127,79 @@ form {
   height: 60px;
   width: 120px;
   border-radius: 15px;
-  background: linear-gradient(45deg, #9C27B0, #E91E63);
+  background: linear-gradient(45deg, #FF6B6B, #FF8E53);
   color: white;
   border: none;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(156, 39, 176, 0.3);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
 }
 
-.button1:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
+.button1:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
 }
 
 .button1:active {
   transform: translateY(0);
 }
 
+.button1:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: scale(0.95);
+}
+
+/* Список задач */
 .todos-list {
   width: 100%;
   max-width: 800px;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .todo-item {
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
   border-radius: 15px;
   padding: 20px;
-  margin-bottom: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  animation: slideIn 0.5s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .todo-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-  border-color: rgba(156, 39, 176, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.todo-item.deleting {
+  animation: slideOut 0.3s ease forwards;
+}
+
+@keyframes slideOut {
+  to {
+    opacity: 0;
+    transform: translateX(100px);
+    height: 0;
+    padding: 0;
+    margin: 0;
+  }
 }
 
 .text {
@@ -111,12 +209,13 @@ form {
   word-break: break-word;
   line-height: 1.4;
   width: 100%;
+  transition: all 0.3s ease;
 }
 
 .actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
   width: 100%;
 }
@@ -126,8 +225,8 @@ form {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  border: 2px solid #2196F3;
-  background-color: rgba(25, 90, 139, 0.3);
+  border: 2px solid #4FC3F7;
+  background-color: rgba(79, 195, 247, 0.2);
   cursor: pointer;
   position: relative;
   transition: all 0.3s ease;
@@ -135,13 +234,14 @@ form {
 }
 
 .check:hover {
-  border-color: #64b5f6;
-  transform: scale(1.1);
+  border-color: #81D4FA;
+  transform: scale(1.15);
+  box-shadow: 0 0 15px rgba(79, 195, 247, 0.5);
 }
 
 .check:checked {
-  background-color: #9C27B0;
-  border-color: #7b1fa2;
+  background-color: #4CAF50;
+  border-color: #66BB6A;
 }
 
 .check:checked::after {
@@ -159,64 +259,97 @@ form {
   padding: 10px 20px;
   border-radius: 25px;
   border: none;
-  background: linear-gradient(45deg, #2196F3, #21CBF3);
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 0.9rem;
   font-weight: 600;
-  box-shadow: 0 2px 10px rgba(33, 150, 243, 0.3);
   flex-shrink: 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.knopka:hover {
+.knopka:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 .knopka:active {
   transform: translateY(0);
 }
 
-.knopka:nth-child(3) {
-  background: linear-gradient(45deg, #FF416C, #FF4B2B);
-  box-shadow: 0 2px 10px rgba(255, 65, 108, 0.3);
+.knopka:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-.knopka:nth-child(3):hover {
-  box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
+.edit-btn {
+  background: linear-gradient(45deg, #2196F3, #21CBF3);
+}
+
+.save-btn {
+  background: linear-gradient(45deg, #4CAF50, #8BC34A);
+}
+
+.delete-btn {
+  background: linear-gradient(45deg, #FF416C, #FF4B2B);
 }
 
 .inizmen {
   width: 100%;
-  max-width: 100%; /* Добавляем ограничение по максимальной ширине */
+  max-width: 100%;
   height: 50px;
   margin-bottom: 15px;
   font-size: 1.3rem;
   border-radius: 10px;
   border: 2px solid transparent;
   color: white;
-  background: rgba(104, 19, 92, 0.8);
+  background: rgba(255, 255, 255, 0.15);
   text-align: center;
   transition: all 0.3s ease;
   padding: 0 15px;
+  backdrop-filter: blur(10px);
 }
 
 .inizmen:focus {
   outline: none;
-  border-color: #9C27B0;
-  box-shadow: 0 0 15px rgba(156, 39, 176, 0.4);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
-/* Адаптивность для мобильных устройств */
+.todo-item.editing {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Адаптивность */
 @media (max-width: 768px) {
+  .App {
+    padding: 15px;
+  }
+  
+  .zagalovok {
+    font-size: 2.2rem;
+  }
+  
   form {
     flex-direction: column;
   }
   
   .button1 {
     width: 100%;
-    margin-left: 0;
+    height: 50px;
+  }
+  
+  .stats-card {
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+  }
+  
+  .stat {
+    flex-direction: row;
+    justify-content: space-between;
   }
   
   .actions {
@@ -227,21 +360,16 @@ form {
     padding: 15px;
   }
   
-  .input {
+  .input, .inizmen {
     font-size: 1rem;
-  }
-  
-  .inizmen {
-    font-size: 1rem;
-    padding: 0 10px;
+    height: 50px;
   }
 }
 
-/* Дополнительные исправления для лучшего отображения */
-.todo-item.editing {
-  padding: 15px; /* Немного уменьшаем padding в режиме редактирования */
-}
-
-.inizmen {
-  box-sizing: border-box; /* Убеждаемся, что padding включен в ширину */
-}
+/* Анимация для последовательного появления задач */
+.todo-item:nth-child(1) { animation-delay: 0.1s; }
+.todo-item:nth-child(2) { animation-delay: 0.2s; }
+.todo-item:nth-child(3) { animation-delay: 0.3s; }
+.todo-item:nth-child(4) { animation-delay: 0.4s; }
+.todo-item:nth-child(5) { animation-delay: 0.5s; }
+.todo-item:nth-child(n+6) { animation-delay: 0.6s; }
